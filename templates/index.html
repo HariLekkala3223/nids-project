@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Intrusion Detection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #ffffff;  /* White background */
+            color: #333333;  /* Dark text for contrast */
+        }
+        .container {
+            width: 70%;
+            margin: 0 auto;
+            background-color: #f5f5f5;  /* Light gray background for the form */
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333333;  /* Dark text for the title */
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 20px;  /* Space between the input fields */
+        }
+        .form-group {
+            flex: 1;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #333333;  /* Dark label text */
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #cccccc;  /* Light gray border */
+            background-color: #ffffff;  /* White background for inputs */
+            color: #333333;  /* Dark text inside input */
+        }
+        .form-group input:focus, .form-group select:focus {
+            background-color: #e6f7ff;  /* Light blue background when focused */
+            color: #333333;  /* Dark text when focused */
+            border-color: #66b3ff;  /* Blue border on focus */
+        }
+        .button-container {
+            text-align: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;  /* Green button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Network Intrusion Detection System</h1>
+        <form method="POST" action="/predict">
+            <div class="form-row">
+                {% for feature in features %}
+                <div class="form-group">
+                    <label for="{{ feature }}">{{ feature }}</label>
+                    {% if feature in encoders %}
+                    <select name="{{ feature }}" id="{{ feature }}">
+                        {% for label in encoders[feature].classes_ %}
+                            <option value="{{ label }}" {% if input_values.get(feature) == label %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    {% else %}
+                    <input type="text" name="{{ feature }}" id="{{ feature }}" value="{{ input_values.get(feature, '') }}">
+                    {% endif %}
+                </div>
+                {% if loop.index % 2 == 0 %}
+            </div>
+            <div class="form-row">
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn">Predict</button>
+            </div>
+        </form>
+
+        <div class="result">
+            {% if prediction %}
+                <p class="{{ 'success' if 'safe' in prediction else 'error' }}">{{ prediction }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
