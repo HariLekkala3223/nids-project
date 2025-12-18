@@ -1,12 +1,13 @@
+
 from flask import Flask, request, render_template
 import numpy as np
 import tensorflow as tf
 import joblib
 
 # Load the trained model and scaler
-model = tf.keras.models.load_model("nids_model.keras")
-scaler = joblib.load("scaler.pkl")
-label_encoders = joblib.load("encoders.pkl")
+model = tf.keras.models.load_model("models/nids_model.keras")
+scaler = joblib.load("preprocessors/scaler.pkl")
+label_encoders = joblib.load("preprocessors/encoders.pkl")
 
 # Define important features (same as used in training)
 important_features = [
