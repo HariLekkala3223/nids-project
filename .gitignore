@@ -1,0 +1,9 @@
+# Virtual environments
+Python/
+venv/
+env/
+
+__pycache__/
+*.pyc
+.DS_Store
+
