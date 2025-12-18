@@ -1,6 +1,13 @@
 import pandas as pd
 import joblib
 from sklearn.preprocessing import MinMaxScaler
+IMPORTANT_FEATURES = [
+    'duration','protocol_type','service','flag',
+    'src_bytes','dst_bytes','count','srv_count',
+    'serror_rate','srv_serror_rate',
+    'dst_host_count','dst_host_srv_count',
+    'dst_host_same_srv_rate'
+]
 
 # Load dataset (disable low memory warning)
 df = pd.read_csv("data/KDD_dataset.csv", low_memory=False)
