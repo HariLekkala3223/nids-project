@@ -14,6 +14,7 @@ important_features = [
     'duration', 'protocol_type', 'service', 'flag', 'src_bytes', 'dst_bytes',
     'count', 'srv_count', 'serror_rate', 'srv_serror_rate',
     'dst_host_count', 'dst_host_srv_count', 'dst_host_same_srv_rate'
+
 ]
 
 # Create Flask app
